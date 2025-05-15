@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>i-HIC - Login</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 15px; background-color: #f5f5f5; font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .login-container { max-width: 400px; width: 100%; background: white; border-radius: 10px; padding: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; }
+        .header { font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif; color: #0066cc; font-size: 24px; font-weight: bold; margin-bottom: 30px; }
+        .passkey-input { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; text-align: center; }
+        .login-btn { width: 100%; padding: 12px; background-color: #3498db; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+        .login-btn:hover { background-color: #2980b9; }
+        .error-message { color: #e74c3c; margin-top: 10px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="header">Instant Halal & Inventory Checker (i-HIC)</div>
+        <input type="password" class="passkey-input" placeholder="Enter Passkey" id="passkey">
+        <button class="login-btn" onclick="checkPasskey()">Login</button>
+        <div class="error-message" id="errorMessage">Invalid passkey. Please try again.</div>
+    </div>
+
+    <script>
+        function checkPasskey() {
+            const passkey = document.getElementById('passkey').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            errorMessage.style.display = 'none';
+            
+            if (!/^\d+$/.test(passkey) || passkey < 0 || passkey > 100) {
+                errorMessage.style.display = 'block';
+                document.getElementById('passkey').value = '';
+                return;
+            }
+            
+            if (passkey === '0') {
+                window.location.href = 'index_main.html';
+                return;
+            }
+            
+            window.location.href = `item_id${passkey}.html`;
+        }
+        
+        document.getElementById('passkey').addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                checkPasskey();
+            }
+        });
+    </script>
+</body>
+</html>
